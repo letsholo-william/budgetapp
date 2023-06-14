@@ -1,0 +1,33 @@
+CREATE DATABASE budget_tracker;
+USE budget_tracker;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    firstname VARCHAR(255) NOT NULL,
+    surname VARCHAR(255) NOT NULL,
+    country VARCHAR(255) NOT NULL,
+    cellphone VARCHAR(20) NOT NULL,
+    employment_status VARCHAR(20) NOT NULL,
+    tax_percentage DECIMAL(5,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE budgets (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  amount DECIMAL(10, 2) NOT NULL,
+  tax_rate DECIMAL(5, 2) NOT NULL,
+  is_set TINYINT(1) DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE expenses (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  budget_id INT,
+  name VARCHAR(255) NOT NULL,
+  amount DECIMAL(10, 2) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (budget_id) REFERENCES budgets(id) ON DELETE CASCADE
+);
